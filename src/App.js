@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from "react";
+import { Checkbox } from 'antd';
+function TodoList({tasksList}) {
+    const todoTasks = tasksList.filter((task)=>
+        task.state === true
+    );
+
+    function onChange(e) {
+        console.log(`checked = ${e.target.checked}`);
+    }
+
+    return(
+        <>
+            {todoTasks.map((todo,index)=>
+                <Checkbox key={index} onChange={onChange}>{todo.name}</Checkbox>
+            )}
+        </>
+    )
+}
+function CompletedList({tasksList}) {
+    const todoTasks = tasksList.filter((task)=>
+        task.state === false
+    );
+
+    function onChange(e) {
+        console.log(`checked = ${e.target.checked}`);
+    }
+
+    return(
+        <>
+            {todoTasks.map((todo,index)=>
+                <Checkbox key={index} onChange={onChange} defaultChecked='true'>{todo.name}</Checkbox>
+            )}
+        </>
+    )
+}
 
 function App() {
+    const [tasksList] = useState([{name:'学英语',state:true},{name:'看电影',state:false}])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <h1>Todo List</h1>
+      <TodoList tasksList= {tasksList}/>
+      <h1>Completed List</h1>
+        <CompletedList tasksList= {tasksList} ></CompletedList>
     </div>
   );
 }
