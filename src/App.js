@@ -27,6 +27,14 @@ function App() {
         console.log('todo操作后')
         console.log(tasksList);
     }
+    const deleteTodoTask =(index)=>{
+        todoTasks.splice(index,1);
+        setTaskList([...todoTasks,...completedTasks]);
+    }
+    const deleteCompletedTask =(index)=>{
+        completedTasks.splice(index,1);
+        setTaskList([...todoTasks,...completedTasks]);
+    }
     const addTask = (e)=>{
         console.log(e)
         const name = e.target.value;
@@ -37,9 +45,9 @@ function App() {
     <div >
       <Input placeholder="请输入你的Todo Task"  onPressEnter={addTask}/>
       <h1>Todo List</h1>
-      <TodoList todoTasks= {todoTasks} toggleTodoTask={toggleTodoTask}/>
+      <TodoList todoTasks= {todoTasks} toggleTodoTask={toggleTodoTask} deleteTodoTask={deleteTodoTask}/>
       <h1>Completed List</h1>
-        <CompletedList completedTasks= {completedTasks} toggleCompletedTask={toggleCompletedTask}></CompletedList>
+        <CompletedList completedTasks= {completedTasks} toggleCompletedTask={toggleCompletedTask} deleteCompletedTask={deleteCompletedTask} />
     </div>
   );
 }
