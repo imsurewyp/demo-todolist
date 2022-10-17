@@ -18,6 +18,7 @@ export function CompletedList({completedTasks, toggleCompletedTask,deleteComplet
                         <>
                             <Checkbox key={index} onChange={(e) => onChange(e, index)} checked>{todo.name}</Checkbox>
                             <Button onClick={() => deleteTask(index)}> delete</Button>
+                            <Button> edit</Button>
                         </>
                     )
                 }
