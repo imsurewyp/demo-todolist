@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import {TodoList} from "./TodoList";
 import {CompletedList} from "./CompletedList";
+import { Input } from 'antd';
 
 function App() {
 
     const [tasksList,setTaskList] = useState([{name:'学英语',state:true,id:1},{name:'看电影',state:false,id:2}])
     const [todoTasks,setTodoTasks] = useState([])
     const [completedTasks,setCompletedTasks] = useState([])
+
     useEffect(()=>{
         setTodoTasks(tasksList.filter((task)=>task.state === false));
         setCompletedTasks(tasksList.filter((task)=>task.state === true));
@@ -22,12 +24,18 @@ function App() {
         completedTasks[index].state = isChecked;
         setCompletedTasks(completedTasks);
         setTaskList([...todoTasks,...completedTasks]);
-        console.log('completed操作后')
+        console.log('todo操作后')
         console.log(tasksList);
+    }
+    const addTask = (e)=>{
+        console.log(e)
+        const name = e.target.value;
+        const newTodoTask = {name,state:false};
+        setTaskList([...tasksList,newTodoTask]);
     }
   return (
     <div >
-        <input type="text"/>
+      <Input placeholder="请输入你的Todo Task"  onPressEnter={addTask}/>
       <h1>Todo List</h1>
       <TodoList todoTasks= {todoTasks} toggleTodoTask={toggleTodoTask}/>
       <h1>Completed List</h1>
