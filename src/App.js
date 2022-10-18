@@ -35,14 +35,15 @@ function App() {
         setTaskList([...todoTasks,...completedTasks]);
     }
     const addTask = (e)=>{
-        e.preventDefault();
         const name = e.target.value;
         const newTodoTask = {name,state:false};
         setTaskList([...tasksList,newTodoTask]);
         setInputValue('');
+        console.log(newTodoTask);
+        console.log(todoTasks);
+        console.log(tasksList);
 
     }
-
     const editTodoTask = (e,index)=>{
         const taskName = e.target.value;
         todoTasks[index].name=taskName;
