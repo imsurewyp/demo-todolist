@@ -1,10 +1,8 @@
 import {Checkbox, Input} from "antd";
 import { Button } from 'antd';
-import {useState} from "react";
 
 
-export function TodoList({todoTasks,toggleTodoTask,deleteTodoTask,editTodoTask}) {
-    const[isEditVisible,setIsEditVisible]=useState(new Array(todoTasks.length).fill(false))
+export function TodoList({todoTasks,toggleTodoTask,deleteTodoTask,editTodoTask,setTaskList,completedTasks}) {
     const onChange = (e, index) => {
        const isChecked = e.target.checked
         toggleTodoTask(index,isChecked)
@@ -15,19 +13,12 @@ export function TodoList({todoTasks,toggleTodoTask,deleteTodoTask,editTodoTask})
     };
     const editTask = (e,index) => {
         editTodoTask(e,index);
-        setIsEditVisible(()=>{
-            isEditVisible[index]=true;
-            return isEditVisible;
-        }
-        );
     };
 
     const handleEdit = (index) => {
-        setIsEditVisible(()=>{
-                isEditVisible[index]=true;
-                return isEditVisible;
-            }
-        );
+       todoTasks[index].readOnly=false;
+        console.log(todoTasks[index]);
+       setTaskList([...todoTasks,...completedTasks])
     };
 
     return (
@@ -36,11 +27,11 @@ export function TodoList({todoTasks,toggleTodoTask,deleteTodoTask,editTodoTask})
                     return (
                     <div  key={`${index}*#`}>
                 <Checkbox  onChange={(e) => onChange(e, index)}>
-                    <Input defaultValue={todo.name} bordered={!isEditVisible[index]} readOnly={isEditVisible[index]}
+                    <Input defaultValue={todo.name} bordered={!todo.readOnly} readOnly={todo.readOnly}
                            onPressEnter={(e)=>editTask(e,index)}/>
                 </Checkbox>
                 <Button onClick={() => deleteTask(index)}> delete</Button>
-                <Button onClick={()=>handleEdit(index)}> edit</Button>
+                <Button onClick={() => handleEdit(index)}> edit</Button>
                     </div>
                     )
             }

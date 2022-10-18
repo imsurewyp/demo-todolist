@@ -6,7 +6,7 @@ import 'antd/dist/antd.css'
 
 function App() {
 
-    const [tasksList,setTaskList] = useState([{name:'学英语',state:true,id:1},{name:'看电影',state:false,id:2}])
+    const [tasksList,setTaskList] = useState([{name:'学英语',state:true,readOnly:true},{name:'看电影',state:false,readOnly:true}])
     const [todoTasks,setTodoTasks] = useState([])
     const [completedTasks,setCompletedTasks] = useState([])
     const [inputValue,setInputValue] = useState('')
@@ -14,7 +14,10 @@ function App() {
     useEffect(()=>{
         setTodoTasks(tasksList.filter((task)=>task.state === false));
         setCompletedTasks(tasksList.filter((task)=>task.state === true));
+        console.log('use effect');
     },[tasksList])
+
+
 
     const toggleTodoTask = (index,isChecked)=>{
         todoTasks[index].state = isChecked;
@@ -39,14 +42,11 @@ function App() {
         const newTodoTask = {name,state:false};
         setTaskList([...tasksList,newTodoTask]);
         setInputValue('');
-        console.log(newTodoTask);
-        console.log(todoTasks);
-        console.log(tasksList);
-
     }
     const editTodoTask = (e,index)=>{
         const taskName = e.target.value;
         todoTasks[index].name=taskName;
+        todoTasks[index].readOnly=!todoTasks[index].readOnly;
         setTaskList([...todoTasks,...completedTasks]);
     }
     const editCompletedTask = (e,index)=>{
@@ -65,6 +65,8 @@ function App() {
                 toggleTodoTask={toggleTodoTask}
                 deleteTodoTask={deleteTodoTask}
                 editTodoTask={editTodoTask}
+                setTaskList={setTaskList}
+                completedTasks= {completedTasks}
                 />
       <h1>Completed List</h1>
       <CompletedList completedTasks= {completedTasks}
