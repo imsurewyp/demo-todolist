@@ -1,10 +1,10 @@
-import {Checkbox, Input, Modal} from "antd";
+import {Checkbox, Input} from "antd";
 import { Button } from 'antd';
 import {useState} from "react";
 
 
-export function TodoList({todoTasks,toggleTodoTask,deleteTodoTask}) {
-    const[isEditVisible,setIsEditVisible]=useState(false)
+export function TodoList({todoTasks,toggleTodoTask,deleteTodoTask,editTodoTask}) {
+    const[isEditVisible,setIsEditVisible]=useState(true)
     const onChange = (e, index) => {
        const isChecked = e.target.checked
         toggleTodoTask(index,isChecked)
@@ -13,32 +13,27 @@ export function TodoList({todoTasks,toggleTodoTask,deleteTodoTask}) {
     const deleteTask = (index) => {
         deleteTodoTask(index);
     };
-
-    const editTask = (index) => {
-        console.log(index)
-    };
-
-    function showEditModal() {
+    const editTask = (e,index) => {
+        editTodoTask(e,index);
         setIsEditVisible(true);
     };
-    const handleCancel = () => {
-        setIsEditVisible(false)
-        console.log('eee')
-    };
+
+    function handleEdit() {
+        setIsEditVisible(false);
+    }
 
     return (
         <>
             {todoTasks.map((todo, index) =>{
-                return (
-                    <>
-                <Checkbox key={index} onChange={(e) => onChange(e, index)}>{todo.name}</Checkbox>
-                <Button onClick={()=>deleteTask(index)}> delete</Button>
-                <Button onClick={showEditModal}> edit</Button>
-                <Modal title="请进行编辑" open={isEditVisible} onOk={editTask} onCancel={handleCancel}>
-                            <Input placeholder={todo.name}></Input>
-                </Modal>
-
-                    </>
+                    return (
+                    <div  key={`${index}*#`}>
+                <Checkbox  onChange={(e) => onChange(e, index)}>
+                    <Input defaultValue={todo.name} bordered={!isEditVisible} readOnly={isEditVisible}
+                           onPressEnter={(e)=>editTask(e,index)}/>
+                </Checkbox>
+                <Button onClick={() => deleteTask(index)}> delete</Button>
+                <Button onClick={handleEdit}> edit</Button>
+                    </div>
                     )
             }
             )}
