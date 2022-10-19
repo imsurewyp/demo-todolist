@@ -38,7 +38,8 @@ function App() {
     }
     const addTask = (e)=>{
         const name = e.target.value;
-        const newTodoTask = {name,state:false};
+        const newTodoTask = {name,state:false,readOnly:true};
+
         setTaskList([...tasksList,newTodoTask]);
         setInputValue('');
     }
