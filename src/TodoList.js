@@ -4,10 +4,7 @@ import { Button } from 'antd';
 import { cloneDeep } from 'lodash';
 
 export function TodoList({ todoTasks,setTodoTasks,completedTasks,setCompletedTasks }) {
-
-  const[tempValue,setTempValue] = useState('');
-
-  const handleCheck = (e,index)=>{
+  const handleCheck = (index)=>{
     setCompletedTasks([...completedTasks,todoTasks[index]]);
     todoTasks.splice(index,1);
   }
@@ -17,7 +14,7 @@ export function TodoList({ todoTasks,setTodoTasks,completedTasks,setCompletedTas
     setTodoTasks(cloneDeep(todoTasks))
   }
 
-  const handleEdit = (index)=>{
+  const handleEnter = (index)=>{
     todoTasks[index].readOnly = !todoTasks[index].readOnly;
     setTodoTasks(cloneDeep(todoTasks))
   }
@@ -27,25 +24,23 @@ export function TodoList({ todoTasks,setTodoTasks,completedTasks,setCompletedTas
     setTodoTasks(cloneDeep(todoTasks))
   }
 
-
-
   return (
     <>
-      {todoTasks.map((item, index) => {
+      {todoTasks?.map((item, index) => {
         return (
           <div key={`${index}${item.name}`}>
-            <Checkbox onChange={(e) => handleCheck(e,index)}>
+            <Checkbox onChange={(e) => handleCheck(index)}>
               <Input
                   defaultValue={item.name}
                 bordered={!item.readOnly}
                 readOnly={item.readOnly}
                   autoFocus={!item.readOnly}
                 onChange={(e) => onChange(e,index)}
-                onPressEnter={(e) => handleEdit(index)}
+                onPressEnter={(e) => handleEnter(index)}
               />
             </Checkbox>
             <Button onClick={() => handleDelete(index)}> delete</Button>
-            <Button onClick={() => handleEdit(index)}> edit</Button>
+            <Button onClick={() => handleEnter(index)}> edit</Button>
           </div>
         );
       })}

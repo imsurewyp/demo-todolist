@@ -18,7 +18,7 @@ function App() {
 
   const addTask = (e) => {
     const newTodoTask = { name:e.target.value, completed: false, readOnly: true };
-    setTaskList([...tasksList, newTodoTask]);
+    setTodoTasks([...tasksList, newTodoTask]);
     setInputValue('');
   };
 
