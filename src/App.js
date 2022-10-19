@@ -19,21 +19,17 @@ function App() {
   }, [tasksList]);
 
   const toggleTask = (index, isChecked, flag) => {
-    switch (flag) {
-      case 'todo':
-        todoTasks[index].state = isChecked;
-        setTodoTasks(todoTasks);
-        setTaskList([...todoTasks, ...completedTasks]);
-        break;
-      case 'completed':
-        completedTasks[index].state = isChecked;
-        setCompletedTasks(completedTasks);
-        setTaskList([...todoTasks, ...completedTasks]);
-        break;
-      default:
-        break;
+    const mapTask = { todo: todoTasks, completed: completedTasks };
+    const taskList = mapTask[flag];
+    taskList[index].state = isChecked;
+    if (flag === 'todo') {
+      setTodoTasks(taskList);
+    } else if (flag === 'completed') {
+      setCompletedTasks(taskList);
     }
+    setTaskList([...todoTasks, ...completedTasks]);
   };
+
   const deleteTodoTask = (index) => {
     todoTasks.splice(index, 1);
     setTaskList([...todoTasks, ...completedTasks]);
