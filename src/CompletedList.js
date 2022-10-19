@@ -1,8 +1,7 @@
 import {Button, Checkbox, Input} from "antd";
-import {useState} from "react";
 
-export function CompletedList({completedTasks, toggleCompletedTask,deleteCompletedTask,editCompletedTask}) {
-    const[isEditVisible,setIsEditVisible]=useState(true)
+export function CompletedList({completedTasks, toggleCompletedTask,deleteCompletedTask,editCompletedTask,setTaskList,todoTasks}) {
+
     const onChange = (e, index) => {
         const isChecked = e.target.checked
         toggleCompletedTask(index, isChecked)
@@ -12,25 +11,27 @@ export function CompletedList({completedTasks, toggleCompletedTask,deleteComplet
         deleteCompletedTask(index);
     };
 
-    const handleEdit = () => {
-        setIsEditVisible(false);
+    const handleEdit = (index) => {
+        completedTasks[index].readOnly=false;
+        setTaskList([...todoTasks,...completedTasks]);
     };
     const editTask = (e,index) => {
         editCompletedTask(e,index);
-        setIsEditVisible(true);
     };
 
     return (
         <>
-            {completedTasks.map((todo, index) => {
+            {completedTasks.map((item, index) => {
                     return (
-                        <div key={`${index}*`}>
-                            <Checkbox key={index} onChange={(e) => onChange(e, index)} checked>
-                                <Input  defaultValue={todo.name} bordered={!isEditVisible} readOnly={isEditVisible}
-                                        onPressEnter={(e)=>editTask(e,index)}/>
+                        <div key={`${index}+${item.name}`}>
+                            <Checkbox  onChange={(e) => onChange(e, index)} checked>
+                                <Input   defaultValue={item.name}
+                                         bordered={!item.readOnly}
+                                         readOnly={item.readOnly}
+                                         onPressEnter={(e)=>editTask(e,index)}/>
                             </Checkbox>
                             <Button onClick={() => deleteTask(index)}> delete</Button>
-                            <Button onClick={handleEdit}> edit</Button>
+                            <Button onClick={()=>handleEdit(index)}> edit</Button>
                         </div>
                     )
                 }

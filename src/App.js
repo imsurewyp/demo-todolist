@@ -14,7 +14,6 @@ function App() {
     useEffect(()=>{
         setTodoTasks(tasksList.filter((task)=>task.state === false));
         setCompletedTasks(tasksList.filter((task)=>task.state === true));
-        console.log('use effect');
     },[tasksList])
 
 
@@ -52,6 +51,7 @@ function App() {
     const editCompletedTask = (e,index)=>{
         const taskName = e.target.value;
         completedTasks[index].name=taskName;
+        completedTasks[index].readOnly=!completedTasks[index].readOnly;
         setTaskList([...todoTasks,...completedTasks]);
     }
     const handleChange = (e)=>{
@@ -73,7 +73,9 @@ function App() {
                      toggleCompletedTask={toggleCompletedTask}
                      deleteCompletedTask={deleteCompletedTask}
                      editCompletedTask={editCompletedTask}
-                    />
+                     setTaskList={setTaskList}
+                     todoTasks= {todoTasks}
+      />
     </div>
   );
 }
