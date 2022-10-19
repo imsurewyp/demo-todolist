@@ -34,11 +34,6 @@ function App() {
         break;
     }
   };
-  // const toggleCompletedTask = (index, isChecked) => {
-  //   completedTasks[index].state = isChecked;
-  //   setCompletedTasks(completedTasks);
-  //   setTaskList([...todoTasks, ...completedTasks]);
-  // };
   const deleteTodoTask = (index) => {
     todoTasks.splice(index, 1);
     setTaskList([...todoTasks, ...completedTasks]);
