@@ -37,22 +37,22 @@ function App() {
   const addTask = (e) => {
     const name = e.target.value;
     const newTodoTask = { name, state: false, readOnly: true };
-
     setTaskList([...tasksList, newTodoTask]);
     setInputValue('');
   };
-  const editTodoTask = (e, index) => {
+  const editTask = (e, index, flag) => {
     const taskName = e.target.value;
-    todoTasks[index].name = taskName;
-    todoTasks[index].readOnly = !todoTasks[index].readOnly;
+    const taskList = mapTask[flag];
+    taskList[index].name = taskName;
+    taskList[index].readOnly = !taskList[index].readOnly;
     setTaskList([...todoTasks, ...completedTasks]);
   };
-  const editCompletedTask = (e, index) => {
-    const taskName = e.target.value;
-    completedTasks[index].name = taskName;
-    completedTasks[index].readOnly = !completedTasks[index].readOnly;
-    setTaskList([...todoTasks, ...completedTasks]);
-  };
+  // const editCompletedTask = (e, index) => {
+  //   const taskName = e.target.value;
+  //   completedTasks[index].name = taskName;
+  //   completedTasks[index].readOnly = !completedTasks[index].readOnly;
+  //   setTaskList([...todoTasks, ...completedTasks]);
+  // };
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -69,7 +69,7 @@ function App() {
         todoTasks={todoTasks}
         toggleTask={toggleTask}
         deleteTask={deleteTask}
-        editTodoTask={editTodoTask}
+        editTask={editTask}
         setTaskList={setTaskList}
         completedTasks={completedTasks}
       />
@@ -78,7 +78,7 @@ function App() {
         completedTasks={completedTasks}
         toggleTask={toggleTask}
         deleteTask={deleteTask}
-        editCompletedTask={editCompletedTask}
+        editTask={editTask}
         setTaskList={setTaskList}
         todoTasks={todoTasks}
       />

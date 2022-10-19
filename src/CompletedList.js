@@ -4,7 +4,7 @@ export function CompletedList({
   completedTasks,
   toggleTask,
   deleteTask,
-  editCompletedTask,
+  editTask,
   setTaskList,
   todoTasks
 }) {
@@ -17,10 +17,6 @@ export function CompletedList({
     completedTasks[index].readOnly = false;
     setTaskList([...todoTasks, ...completedTasks]);
   };
-  const editTask = (e, index) => {
-    editCompletedTask(e, index);
-  };
-
   return (
     <>
       {completedTasks.map((item, index) => {
@@ -31,7 +27,7 @@ export function CompletedList({
                 defaultValue={item.name}
                 bordered={!item.readOnly}
                 readOnly={item.readOnly}
-                onPressEnter={(e) => editTask(e, index)}
+                onPressEnter={(e) => editTask(e, index, flag)}
               />
             </Checkbox>
             <Button onClick={() => deleteTask(index, flag)}> delete</Button>

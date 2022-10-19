@@ -5,7 +5,7 @@ export function TodoList({
   todoTasks,
   toggleTask,
   deleteTask,
-  editTodoTask,
+  editTask,
   setTaskList,
   completedTasks
 }) {
@@ -13,9 +13,6 @@ export function TodoList({
   const onChange = (e, index) => {
     const isChecked = e.target.checked;
     toggleTask(index, isChecked, flag);
-  };
-  const editTask = (e, index) => {
-    editTodoTask(e, index);
   };
   const handleEdit = (index) => {
     todoTasks[index].readOnly = false;
@@ -32,7 +29,7 @@ export function TodoList({
                 defaultValue={item.name}
                 bordered={!item.readOnly}
                 readOnly={item.readOnly}
-                onPressEnter={(e) => editTask(e, index)}
+                onPressEnter={(e) => editTask(e, index, flag)}
               />
             </Checkbox>
             <Button onClick={() => deleteTask(index, flag)}> delete</Button>
