@@ -4,7 +4,7 @@ import { Button } from 'antd';
 export function TodoList({
   todoTasks,
   toggleTask,
-  deleteTodoTask,
+  deleteTask,
   editTodoTask,
   setTaskList,
   completedTasks
@@ -13,9 +13,6 @@ export function TodoList({
   const onChange = (e, index) => {
     const isChecked = e.target.checked;
     toggleTask(index, isChecked, flag);
-  };
-  const deleteTask = (index) => {
-    deleteTodoTask(index);
   };
   const editTask = (e, index) => {
     editTodoTask(e, index);
@@ -38,7 +35,7 @@ export function TodoList({
                 onPressEnter={(e) => editTask(e, index)}
               />
             </Checkbox>
-            <Button onClick={() => deleteTask(index)}> delete</Button>
+            <Button onClick={() => deleteTask(index, flag)}> delete</Button>
             <Button onClick={() => handleEdit(index)}> edit</Button>
           </div>
         );

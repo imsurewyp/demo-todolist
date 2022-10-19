@@ -3,7 +3,7 @@ import { Button, Checkbox, Input } from 'antd';
 export function CompletedList({
   completedTasks,
   toggleTask,
-  deleteCompletedTask,
+  deleteTask,
   editCompletedTask,
   setTaskList,
   todoTasks
@@ -13,11 +13,6 @@ export function CompletedList({
     const isChecked = e.target.checked;
     toggleTask(index, isChecked, flag);
   };
-
-  const deleteTask = (index) => {
-    deleteCompletedTask(index);
-  };
-
   const handleEdit = (index) => {
     completedTasks[index].readOnly = false;
     setTaskList([...todoTasks, ...completedTasks]);
@@ -39,7 +34,7 @@ export function CompletedList({
                 onPressEnter={(e) => editTask(e, index)}
               />
             </Checkbox>
-            <Button onClick={() => deleteTask(index)}> delete</Button>
+            <Button onClick={() => deleteTask(index, flag)}> delete</Button>
             <Button onClick={() => handleEdit(index)}> edit</Button>
           </div>
         );

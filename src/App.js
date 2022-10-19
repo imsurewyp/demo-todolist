@@ -30,12 +30,10 @@ function App() {
     setTaskList([...todoTasks, ...completedTasks]);
   };
 
-  const deleteTodoTask = (index) => {
-    todoTasks.splice(index, 1);
-    setTaskList([...todoTasks, ...completedTasks]);
-  };
-  const deleteCompletedTask = (index) => {
-    completedTasks.splice(index, 1);
+  const deleteTask = (index, flag) => {
+    const mapTask = { todo: todoTasks, completed: completedTasks };
+    const taskList = mapTask[flag];
+    taskList.splice(index, 1);
     setTaskList([...todoTasks, ...completedTasks]);
   };
   const addTask = (e) => {
@@ -72,7 +70,7 @@ function App() {
       <TodoList
         todoTasks={todoTasks}
         toggleTask={toggleTask}
-        deleteTodoTask={deleteTodoTask}
+        deleteTask={deleteTask}
         editTodoTask={editTodoTask}
         setTaskList={setTaskList}
         completedTasks={completedTasks}
@@ -81,7 +79,7 @@ function App() {
       <CompletedList
         completedTasks={completedTasks}
         toggleTask={toggleTask}
-        deleteCompletedTask={deleteCompletedTask}
+        deleteTask={deleteTask}
         editCompletedTask={editCompletedTask}
         setTaskList={setTaskList}
         todoTasks={todoTasks}
