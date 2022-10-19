@@ -7,11 +7,7 @@ import 'antd/dist/antd.css';
 function App() {
   const [tasksList, setTaskList] = useState([
     { name: '学英语', state: true, readOnly: true },
-    {
-      name: '看电影',
-      state: false,
-      readOnly: true
-    }
+    { name: '看电影', state: false, readOnly: true }
   ]);
   const [todoTasks, setTodoTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
@@ -22,16 +18,27 @@ function App() {
     setCompletedTasks(tasksList.filter((task) => task.state === true));
   }, [tasksList]);
 
-  const toggleTodoTask = (index, isChecked) => {
-    todoTasks[index].state = isChecked;
-    setTodoTasks(todoTasks);
-    setTaskList([...todoTasks, ...completedTasks]);
+  const toggleTask = (index, isChecked, flag) => {
+    switch (flag) {
+      case 'todo':
+        todoTasks[index].state = isChecked;
+        setTodoTasks(todoTasks);
+        setTaskList([...todoTasks, ...completedTasks]);
+        break;
+      case 'completed':
+        completedTasks[index].state = isChecked;
+        setCompletedTasks(completedTasks);
+        setTaskList([...todoTasks, ...completedTasks]);
+        break;
+      default:
+        break;
+    }
   };
-  const toggleCompletedTask = (index, isChecked) => {
-    completedTasks[index].state = isChecked;
-    setCompletedTasks(completedTasks);
-    setTaskList([...todoTasks, ...completedTasks]);
-  };
+  // const toggleCompletedTask = (index, isChecked) => {
+  //   completedTasks[index].state = isChecked;
+  //   setCompletedTasks(completedTasks);
+  //   setTaskList([...todoTasks, ...completedTasks]);
+  // };
   const deleteTodoTask = (index) => {
     todoTasks.splice(index, 1);
     setTaskList([...todoTasks, ...completedTasks]);
@@ -73,7 +80,7 @@ function App() {
       <h1>Todo List</h1>
       <TodoList
         todoTasks={todoTasks}
-        toggleTodoTask={toggleTodoTask}
+        toggleTask={toggleTask}
         deleteTodoTask={deleteTodoTask}
         editTodoTask={editTodoTask}
         setTaskList={setTaskList}
@@ -82,7 +89,7 @@ function App() {
       <h1>Completed List</h1>
       <CompletedList
         completedTasks={completedTasks}
-        toggleCompletedTask={toggleCompletedTask}
+        toggleTask={toggleTask}
         deleteCompletedTask={deleteCompletedTask}
         editCompletedTask={editCompletedTask}
         setTaskList={setTaskList}

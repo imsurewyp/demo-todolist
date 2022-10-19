@@ -3,15 +3,16 @@ import { Button } from 'antd';
 
 export function TodoList({
   todoTasks,
-  toggleTodoTask,
+  toggleTask,
   deleteTodoTask,
   editTodoTask,
   setTaskList,
   completedTasks
 }) {
+  const flag = 'todo';
   const onChange = (e, index) => {
     const isChecked = e.target.checked;
-    toggleTodoTask(index, isChecked);
+    toggleTask(index, isChecked, flag);
   };
   const deleteTask = (index) => {
     deleteTodoTask(index);

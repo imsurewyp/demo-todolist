@@ -2,15 +2,16 @@ import { Button, Checkbox, Input } from 'antd';
 
 export function CompletedList({
   completedTasks,
-  toggleCompletedTask,
+  toggleTask,
   deleteCompletedTask,
   editCompletedTask,
   setTaskList,
   todoTasks
 }) {
+  const flag = 'completed';
   const onChange = (e, index) => {
     const isChecked = e.target.checked;
-    toggleCompletedTask(index, isChecked);
+    toggleTask(index, isChecked, flag);
   };
 
   const deleteTask = (index) => {
