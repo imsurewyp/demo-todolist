@@ -47,16 +47,14 @@ function App() {
     taskList[index].readOnly = !taskList[index].readOnly;
     setTaskList([...todoTasks, ...completedTasks]);
   };
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
+
   return (
     <div>
       <Input
         placeholder="请输入你的Todo Task"
         onPressEnter={addTask}
         value={inputValue}
-        onChange={handleChange}
+        onChange={(e) => setInputValue(e.target.value)}
       />
       <h1>Todo List</h1>
       <TodoList
