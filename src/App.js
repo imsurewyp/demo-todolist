@@ -12,6 +12,7 @@ function App() {
   const [todoTasks, setTodoTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const mapTask = { todo: todoTasks, completed: completedTasks };
 
   useEffect(() => {
     setTodoTasks(tasksList.filter((task) => task.state === false));
@@ -19,7 +20,6 @@ function App() {
   }, [tasksList]);
 
   const toggleTask = (index, isChecked, flag) => {
-    const mapTask = { todo: todoTasks, completed: completedTasks };
     const taskList = mapTask[flag];
     taskList[index].state = isChecked;
     if (flag === 'todo') {
@@ -29,9 +29,7 @@ function App() {
     }
     setTaskList([...todoTasks, ...completedTasks]);
   };
-
   const deleteTask = (index, flag) => {
-    const mapTask = { todo: todoTasks, completed: completedTasks };
     const taskList = mapTask[flag];
     taskList.splice(index, 1);
     setTaskList([...todoTasks, ...completedTasks]);
