@@ -47,12 +47,6 @@ function App() {
     taskList[index].readOnly = !taskList[index].readOnly;
     setTaskList([...todoTasks, ...completedTasks]);
   };
-  // const editCompletedTask = (e, index) => {
-  //   const taskName = e.target.value;
-  //   completedTasks[index].name = taskName;
-  //   completedTasks[index].readOnly = !completedTasks[index].readOnly;
-  //   setTaskList([...todoTasks, ...completedTasks]);
-  // };
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
