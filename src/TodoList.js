@@ -3,17 +3,13 @@ import { Button } from 'antd';
 
 export function TodoList({ todoTasks, toggleTask, deleteTask, editTask, editButton }) {
   const flag = 'todo';
-  const onChange = (e, index) => {
-    const isChecked = e.target.checked;
-    toggleTask(index, isChecked, flag);
-  };
 
   return (
     <>
       {todoTasks.map((item, index) => {
         return (
           <div key={`${index}${item.name}`}>
-            <Checkbox onChange={(e) => onChange(e, index)}>
+            <Checkbox onChange={(e) => toggleTask(e, index, flag)}>
               <Input
                 defaultValue={item.name}
                 bordered={!item.readOnly}

@@ -19,8 +19,9 @@ function App() {
     setCompletedTasks(tasksList.filter((task) => task.state === true));
   }, [tasksList]);
 
-  const toggleTask = (index, isChecked, flag) => {
+  const toggleTask = (e, index, flag) => {
     const taskList = mapTask[flag];
+    const isChecked = e.target.checked;
     taskList[index].state = isChecked;
     if (flag === 'todo') {
       setTodoTasks(taskList);
