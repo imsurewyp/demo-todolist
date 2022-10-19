@@ -1,22 +1,12 @@
 import { Button, Checkbox, Input } from 'antd';
 
-export function CompletedList({
-  completedTasks,
-  toggleTask,
-  deleteTask,
-  editTask,
-  setTaskList,
-  todoTasks
-}) {
+export function CompletedList({ completedTasks, toggleTask, deleteTask, editTask, editButton }) {
   const flag = 'completed';
   const onChange = (e, index) => {
     const isChecked = e.target.checked;
     toggleTask(index, isChecked, flag);
   };
-  const handleEdit = (index) => {
-    completedTasks[index].readOnly = false;
-    setTaskList([...todoTasks, ...completedTasks]);
-  };
+
   return (
     <>
       {completedTasks.map((item, index) => {
@@ -31,7 +21,7 @@ export function CompletedList({
               />
             </Checkbox>
             <Button onClick={() => deleteTask(index, flag)}> delete</Button>
-            <Button onClick={() => handleEdit(index)}> edit</Button>
+            <Button onClick={() => editButton(index, flag)}> edit</Button>
           </div>
         );
       })}

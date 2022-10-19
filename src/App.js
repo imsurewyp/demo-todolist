@@ -47,6 +47,11 @@ function App() {
     taskList[index].readOnly = !taskList[index].readOnly;
     setTaskList([...todoTasks, ...completedTasks]);
   };
+  const editButton = (index, flag) => {
+    const taskList = mapTask[flag];
+    taskList[index].readOnly = false;
+    setTaskList([...todoTasks, ...completedTasks]);
+  };
 
   return (
     <div>
@@ -62,8 +67,7 @@ function App() {
         toggleTask={toggleTask}
         deleteTask={deleteTask}
         editTask={editTask}
-        setTaskList={setTaskList}
-        completedTasks={completedTasks}
+        editButton={editButton}
       />
       <h1>Completed List</h1>
       <CompletedList
@@ -71,8 +75,7 @@ function App() {
         toggleTask={toggleTask}
         deleteTask={deleteTask}
         editTask={editTask}
-        setTaskList={setTaskList}
-        todoTasks={todoTasks}
+        editButton={editButton}
       />
     </div>
   );
