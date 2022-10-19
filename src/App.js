@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react';
 import { TodoList } from './TodoList';
 import { CompletedList } from './CompletedList';
 import { Input } from 'antd';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 
 function App() {
   const [tasksList, setTaskList] = useState([
     { name: '学英语', state: true, readOnly: true },
     { name: '看电影', state: false, readOnly: true }
   ]);
+
   const [todoTasks, setTodoTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
+
   const mapTask = { todo: todoTasks, completed: completedTasks };
 
   useEffect(() => {
@@ -30,17 +32,20 @@ function App() {
     }
     setTaskList([...todoTasks, ...completedTasks]);
   };
+
   const deleteTask = (index, flag) => {
     const taskList = mapTask[flag];
     taskList.splice(index, 1);
     setTaskList([...todoTasks, ...completedTasks]);
   };
+
   const addTask = (e) => {
     const name = e.target.value;
     const newTodoTask = { name, state: false, readOnly: true };
     setTaskList([...tasksList, newTodoTask]);
     setInputValue('');
   };
+
   const editTask = (e, index, flag) => {
     const taskName = e.target.value;
     const taskList = mapTask[flag];
@@ -48,6 +53,7 @@ function App() {
     taskList[index].readOnly = !taskList[index].readOnly;
     setTaskList([...todoTasks, ...completedTasks]);
   };
+
   const editButton = (index, flag) => {
     const taskList = mapTask[flag];
     taskList[index].readOnly = false;
