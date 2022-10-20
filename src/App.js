@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
-import { TodoList } from './TodoList';
-import { CompletedList } from './CompletedList';
-import { Input } from 'antd';
+import {useEffect, useState} from 'react';
+import {TodoList} from './TodoList';
+import {CompletedList} from './CompletedList';
+import {Input} from 'antd';
 import 'antd/dist/antd.min.css';
-import { cloneDeep } from 'lodash';
 
 function App() {
 
