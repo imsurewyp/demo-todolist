@@ -1,67 +1,38 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { TodoList } from './TodoList';
 import { CompletedList } from './CompletedList';
 import { Input } from 'antd';
 import 'antd/dist/antd.min.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const tasksList = [
-    { name: '学英语', completed: false, readOnly: true },
-    { name: '看电影', completed: true, readOnly: true }
-  ];
-
-  const [todoTasks, setTodoTasks] = useState([]);
-  const [completedTasks, setCompletedTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const todoTasks = useSelector((state) => state.todoTasks);
+  const completedTasks = useSelector((state) => state.completedTasks);
 
-  const addTask = (e) => {
-    const newTodoTask = { name: e.target.value, completed: false, readOnly: true };
-    setTodoTasks([...tasksList, newTodoTask]);
-    setInputValue('');
-  };
-  const mounted = useRef();
-  useEffect(() => {
-    setTodoTasks(tasksList.filter((item) => !item.completed));
-    setCompletedTasks(tasksList.filter((item) => item.completed));
-    if (!mounted.current) {
-      mounted.current = true;
-      console.log('app', mounted);
-    } else {
-      console.log('app I am didUpdate');
-    }
-    console.log('app did mount');
-    // console.log('inner', todoTasks);
-    // console.log('inner', completedTasks);
-    return () => {
-      console.log('app will unmount');
-    };
-  }, []);
-  // console.log('out', todoTasks);
-  // console.log('out', completedTasks);
-  console.log('app render');
+  console.log('all', state);
+  console.log('todo', todoTasks);
+  console.log('completed', completedTasks);
 
   return (
     <div>
       <Input
         placeholder="请输入你的Todo Task"
-        onPressEnter={addTask}
+        onPressEnter={(e) =>
+          dispatch({
+            type: 'add task',
+            payload: { name: e.target.value, completed: false, readOnly: true }
+          })
+        }
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
       <h1>Todo List</h1>
-      <TodoList
-        todoTasks={todoTasks}
-        setTodoTasks={setTodoTasks}
-        completedTasks={completedTasks}
-        setCompletedTasks={setCompletedTasks}
-      />
+      <TodoList />
       <h1>Completed List</h1>
-      <CompletedList
-        todoTasks={todoTasks}
-        setTodoTasks={setTodoTasks}
-        completedTasks={completedTasks}
-        setCompletedTasks={setCompletedTasks}
-      />
+      <CompletedList />
     </div>
   );
 }
