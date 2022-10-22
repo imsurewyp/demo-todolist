@@ -17,9 +17,12 @@ export const rootReducer = (state = tasks, action) => {
         todoTasks: [...state.todoTasks, action.payload]
       };
     case 'toggle todo task':
+      const tempTodoTasks = cloneDeep(state.todoTasks);
+      tempTodoTasks.splice(action.payload, 1);
+      //array.splice(index,num):返回值是被删除的元素组成的数组
       return {
         completedTasks: [...state.completedTasks, state.todoTasks[action.payload]],
-        todoTasks: cloneDeep(state.todoTasks.splice(action.payload, 1))
+        todoTasks: tempTodoTasks
       };
     case 'toggle completed task':
       return {

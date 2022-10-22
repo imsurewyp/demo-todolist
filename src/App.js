@@ -12,10 +12,6 @@ function App() {
   const todoTasks = useSelector((state) => state.todoTasks);
   const completedTasks = useSelector((state) => state.completedTasks);
 
-  console.log('all', state);
-  console.log('todo', todoTasks);
-  console.log('completed', completedTasks);
-
   return (
     <div>
       <Input
